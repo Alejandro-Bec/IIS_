@@ -49,7 +49,7 @@ int main() {
     return 0;
 } */
 
-#include <stdio.h>
+/* #include <stdio.h>
 
 int main() {
     // TODO: Imprimir el tamaño en bytes de:
@@ -75,3 +75,54 @@ int main() {
     
     return 0;
 }
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void calcularMaxMin(float *arr, int n, float *max, float *min);
+
+int main(){
+
+  float *arr;
+  float Max, Min;
+  int tam;
+  
+  printf("De que tamaño sera el arreglo? : ");
+  scanf("%d", &tam);
+  
+  arr = (float *) malloc(tam * sizeof(float));
+  if(arr == NULL){
+    printf("Error: no se pudo reservar memoria.");
+    return (1);
+  }
+  
+  for(int i = 0; i < tam; i++){
+    printf("Ingresa el valor %d: \n", i +1);
+    scanf("%f", &arr[i]);
+  }
+  
+  calcularMaxMin(arr, tam, &Max, &Min);
+  
+}
+  
+void calcularMaxMin(float *arr, int n, float *max, float *min)
+{
+  *max = *arr;             //esto apunta a el arreglo en su primera posicion
+  *min = *arr;
+ 
+ //iniciamos a i en 1 ya que esta apuntando a la primera direccion de memoria y le sumamos uno para que se mueva uno a la direccion de memoria
+  for(int i = 1; i < n; i++){  
+  
+    if(*max < *(arr + i)){             //*(arr + i) == arr[i]
+      *max = *(arr + i);
+      }
+      
+    if(*(arr + i) < *min){
+      *min = *(arr + i);
+      }  
+  }
+    printf("El MAXIMO es: %f, y el MINIMO es: %f", *max, *min);  
+}
+
+  
