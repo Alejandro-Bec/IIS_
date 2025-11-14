@@ -139,6 +139,6 @@ void imprime_estudiante_calif(struct Estudiante e, int num_calif) {
     printf("\tMateria: %s\n", e.calificaciones[i].materia);
     printf("\t\tPuntuación: %.2f\n", e.calificaciones[i].puntuacion);
     printf("\t\tsemestre: %d\n", e.calificaciones[i].semestre);
-    printf("\t\tPromedio general: %.2f\n", e.promedio_general);
   }
+    printf("\t\tPromedio general: %.2f\n", e.promedio_general);
 }
