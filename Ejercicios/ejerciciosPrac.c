@@ -32,4 +32,5 @@ float llenarCalificaciones(int n){
     printf("Ingresa la calificacion del alumno %d:  \n", i + 1);
     scanf("%f", &arr[i]);
   }
-}
+} 
+
