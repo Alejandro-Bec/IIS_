@@ -12,12 +12,13 @@ typedef struct {
   float venta;
   float ganancia;
   float abonos[15];
+  int numAbonos;
   
 }Cliente;
 
-void agregarCliente(Cliente lista[], int *total);
+void agregar_registroCliente(Cliente lista[], int *total); //cambiarle nombre a Agregar registro de cliente
 void buscarCliente(Cliente lista[], int total);
-void eliminarCliente(Cliente lista[], int *total);
+void agregarAbono(Cliente lista[], int *total);
 
 
 int main(){
@@ -39,29 +40,41 @@ int main(){
   }
   
   printf("\t\t\t\t BIENVENIDA PATY\n\n");
-  printf("\t\tQue deseas hacer el dia de hoy?: \n");
-  printf("1. Buscar Cliente.\n");
-  printf("2. Agregar Cliente.\n");
-  printf("3. Eliminar Cliente.\n");
-  scanf("%d", &op);
-  getchar();
-  
- switch(op){
-        case 1:
-            buscarCliente(lista, totalClientes);
-            break;
-        case 2:
-            agregarCliente(lista, &totalClientes);
-            break;
-        case 3:
-            eliminarCliente(lista, &totalClientes);
-            break;
-        default:
-            printf("Opcion invalida");
+   while (1) {
+
+        printf("\n¿Qué deseas hacer el día de hoy?\n");
+        printf("1. Buscar Cliente\n");
+        printf("2. Agregar Cliente\n");
+        printf("3. Eliminar Cliente\n");
+        printf("4. Salir\n");
+        printf("Opción: ");
+        scanf("%d", &op);
+        getchar();
+
+        switch (op) {
+            case 1:
+                buscarCliente(lista, totalClientes);
+                break;
+
+            case 2:
+                agregar_registroCliente(lista, &totalClientes);
+                break;
+
+            case 3:
+                agregarAbono(lista, &totalClientes); 
+                break;
+
+            case 4:
+                printf("Saliendo del sistema...\n");
+                return 0;   
+
+            default:
+                printf("Opción inválida.\n");
+        }
     }
 }
 
-void agregarCliente(Cliente lista[], int *total){
+void agregar_registroCliente(Cliente lista[], int *total){
 
   int n, abo; 
   float g1,g2,g3;
@@ -95,12 +108,15 @@ void agregarCliente(Cliente lista[], int *total){
     g1 = (c.costo * 30) / 100;
     g2 = (c.costo * 40) / 100;
     g3 = (c.costo * 50) / 100;
+    
     printf("\t\t\t===== SUGERENCIA DE VENTA =====\n");
+    
     printf("Tu producto te costo %.2f, si quisieras ganarle el 30 porciento, tu ganancia seria de %.2f.\n", c.costo, g1);
     printf("Tu producto te costo %.2f, si quisieras ganarle el 40 porciento, tu ganancia seria de %.2f.\n", c.costo, g2);
     printf("Tu producto te costo %.2f, si quisieras ganarle el 50 porciento, tu ganancia seria de %.2f.\n", c.costo, g3);
     printf("Si deseas conservar alguna de las opciones digita 1, si deseas ingresar tu precio de venta digita 2: \n");
     scanf("%d", &resp);
+    
     if(resp == 1){
       printf("Ingresa la opcion que deseas de ganancia: \n");
       printf("1: Ganancia del 30 porciento.\n");
@@ -131,24 +147,40 @@ void agregarCliente(Cliente lista[], int *total){
     (*total)++;
     getchar();
   }
-  return c;
+
 }
 
 void buscarCliente(Cliente lista[], int total) {
     
-    //int busca = 0;
+    char busca[25];
+  
+    printf("Ingresa el nombre a buscar: ");
+    scanf("%s", busca);
     
-    printf("Nombre de cliente: \n");
-    //fgets(c.nombre, sizeof(c.nombre), stdin);
-    //c.nombre[strcspn(c.nombre, "\n")] = '\0';
-    
-    /*for(int i = 0; i < lista; i++){
-      for(int j = 0; j < total; i++)
-      
-    }*/
-}
+    int encontrado = 0;
+  
+    for(int i = 0; i < total; i++){
+        if(strcmp(busca, lista[i].nombre) == 0){
 
-void eliminarCliente(Cliente lista[], int *total) {
+            printf("\nContacto encontrado:\n");
+            printf("Nombre: %s\n", lista[i].nombre);
+            printf("Producto: %s\n", lista[i].producto);
+            printf("Categoria: %c\n", lista[i].categoria);
+            printf("Costo: %.2f\n", lista[i].costo);
+            printf("Venta: %.2f\n", lista[i].venta);
+            printf("Ganancia: %.2f\n", lista[i].ganancia);
+            
+            encontrado = 1;
+            break;
+        }
+    }
+
+    if(!encontrado){
+        printf("\nNo existe un contacto con ese nombre.\n");
+    }
+ }
+
+void agregarAbono(Cliente lista[], int *total) {
     printf("Funcion eliminar (aún no implementada)\n");
 }
 
