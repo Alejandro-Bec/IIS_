@@ -7,7 +7,7 @@ typedef struct {
   
   char nombre[50];
   char producto[50];
-  char categoria;
+  char categoria[15];
   float costo;
   float venta;
   float ganancia;
@@ -16,9 +16,9 @@ typedef struct {
   
 }Cliente;
 
-void agregar_registroCliente(Cliente lista[], int *total); //cambiarle nombre a Agregar registro de cliente
+void agregar_registroCliente(Cliente lista[], int *total); 
 void buscarCliente(Cliente lista[], int total);
-void agregarAbono(Cliente lista[], int *total);
+void agregarAbono(Cliente lista[], int total);
 
 
 int main(){
@@ -28,9 +28,9 @@ int main(){
   int totalClientes = 0;
   Cliente lista[MAX_VENTAS];
   
-  printf("\t\t----- SISTEMA DE VENTAS -----\n\n");
+  printf("\t\t\t----- SISTEMA DE VENTAS -----\n\n");
   
-  printf("Ingresa tu numero de cuenta o numero de socio: \n");
+  printf("Ingresa tu numero de cuenta o numero de socio: ");
   scanf("%ld", &cuenta);
   getchar();
   
@@ -39,17 +39,20 @@ int main(){
     return 0;
   }
   
-  printf("\t\t\t\t BIENVENIDA PATY\n\n");
-   while (1) {
+  printf("\n\t\t\t\t BIENVENIDA PATY\n");
+  
+  while (1) {
 
         printf("\n¿Qué deseas hacer el día de hoy?\n");
         printf("1. Buscar Cliente\n");
         printf("2. Agregar Cliente\n");
-        printf("3. Eliminar Cliente\n");
+        printf("3. Agregar ABono\n");
         printf("4. Salir\n");
         printf("Opción: ");
         scanf("%d", &op);
         getchar();
+
+        printf("\n");
 
         switch (op) {
             case 1:
@@ -74,6 +77,7 @@ int main(){
     }
 }
 
+
 void agregar_registroCliente(Cliente lista[], int *total){
 
   int n, abo; 
@@ -85,13 +89,13 @@ void agregar_registroCliente(Cliente lista[], int *total){
     printf("Error: no puedes agregar mas de 100 clientes.");
   }
   
-  printf("Cuantos clientes deseas agregar?: ");
+  printf("\nCuantos clientes deseas agregar?: ");
   scanf("%d", &n);
   getchar();
   
   for(int i = 0; i < n; i++){
   
-    printf("Ingresa el nombre: ");
+    printf("\nIngresa el nombre: ");
     fgets(c.nombre, sizeof(c.nombre), stdin);
     c.nombre[strcspn(c.nombre, "\n")] = '\0';
     
@@ -100,49 +104,65 @@ void agregar_registroCliente(Cliente lista[], int *total){
     c.producto[strcspn(c.producto, "\n")] = '\0';
     
     printf("Ingresa la categoria (perfumes o zapatos): ");
-    scanf("%s", &c.categoria);
+    scanf("%s", c.categoria);
     getchar();
+
     printf("Ingresa el costo del producto (costo en que lo compraste): ");
     scanf("%f", &c.costo);
     printf("\n");
+
     g1 = (c.costo * 30) / 100;
     g2 = (c.costo * 40) / 100;
     g3 = (c.costo * 50) / 100;
     
-    printf("\t\t\t===== SUGERENCIA DE VENTA =====\n");
+    printf("\t\t\t===== SUGERENCIA DE VENTA =====\n\n");
     
-    printf("Tu producto te costo %.2f, si quisieras ganarle el 30 porciento, tu ganancia seria de %.2f.\n", c.costo, g1);
-    printf("Tu producto te costo %.2f, si quisieras ganarle el 40 porciento, tu ganancia seria de %.2f.\n", c.costo, g2);
-    printf("Tu producto te costo %.2f, si quisieras ganarle el 50 porciento, tu ganancia seria de %.2f.\n", c.costo, g3);
-    printf("Si deseas conservar alguna de las opciones digita 1, si deseas ingresar tu precio de venta digita 2: \n");
+    printf("Tu producto te costo %.2f, si quisieras ganarle el 30%%, tu ganancia seria de %.2f.\n", c.costo, g1);
+    printf("Tu producto te costo %.2f, si quisieras ganarle el 40%%, tu ganancia seria de %.2f.\n", c.costo, g2);
+    printf("Tu producto te costo %.2f, si quisieras ganarle el 50%%, tu ganancia seria de %.2f.\n", c.costo, g3);
+
+    printf("\nSi deseas conservar alguna de las opciones digita 1, si deseas ingresar tu precio de venta digita 2: ");
     scanf("%d", &resp);
     
     if(resp == 1){
-      printf("Ingresa la opcion que deseas de ganancia: \n");
+      printf("\nIngresa la opcion que deseas de ganancia: ");
       printf("1: Ganancia del 30 porciento.\n");
       printf("2: Ganancia del 40 porciento.\n");
       printf("3: Ganancia del 50 porciento.\n");
       scanf("%d", &op);
+
       if(op == 1){
           c.venta = c.costo + g1;
           printf("El precio de venta sera de: %.2f.\n", c.venta);
-        }else if(op == 2){
+
+      }else if(op == 2){
           c.venta = c.costo + g2;
           printf("El precio de venta sera de: %.2f.\n", c.venta);
-        }else if(op == 3){
+
+      }else if(op == 3){
           c.venta = c.costo + g3;
           printf("El precio de venta sera de: %.2f.\n", c.venta);
-        }
-      }else if(resp == 2){
-        printf("Ingresa el precio de venta \n");
+      }
+
+    }else if(resp == 2){
+        printf("Ingresa el precio de venta: ");
         scanf("%f", &c.venta);
     }
-    printf("Cuantos abonos has recibido?: \n");
+    
+    c.ganancia = c.venta - c.costo;
+
+    printf("\nCuantos abonos has recibido?: ");
     scanf("%d", &abo);
-    for(int j = 0; j < abo; j++){
-        printf("Cantidad del abono %d: \n", j + 1);
+
+    c.numAbonos = 0;
+    
+    for(int j = 0; j < abo && j < 15; j++){
+        printf("Monto de abono %d: ", i +1);
         scanf("%f", &c.abonos[j]);
+        c.numAbonos++;
     }
+
+
     lista[*total] = c;
     (*total)++;
     getchar();
@@ -150,11 +170,13 @@ void agregar_registroCliente(Cliente lista[], int *total){
 
 }
 
+
+
 void buscarCliente(Cliente lista[], int total) {
     
     char busca[25];
   
-    printf("Ingresa el nombre a buscar: ");
+    printf("\nIngresa el nombre a buscar: ");
     scanf("%s", busca);
     
     int encontrado = 0;
@@ -162,16 +184,16 @@ void buscarCliente(Cliente lista[], int total) {
     for(int i = 0; i < total; i++){
         if(strcmp(busca, lista[i].nombre) == 0){
 
-            printf("\nContacto encontrado:\n");
+            printf("\nContacto encontrado:\n\n");
             printf("Nombre: %s\n", lista[i].nombre);
             printf("Producto: %s\n", lista[i].producto);
-            printf("Categoria: %c\n", lista[i].categoria);
+            printf("Categoria: %s\n", lista[i].categoria);
             printf("Costo: %.2f\n", lista[i].costo);
             printf("Venta: %.2f\n", lista[i].venta);
             printf("Ganancia: %.2f\n", lista[i].ganancia);
             
             encontrado = 1;
-            break;
+            break; 
         }
     }
 
@@ -180,7 +202,35 @@ void buscarCliente(Cliente lista[], int total) {
     }
  }
 
-void agregarAbono(Cliente lista[], int *total) {
-    printf("Funcion eliminar (aún no implementada)\n");
+
+
+void agregarAbono(Cliente lista[], int total) {
+
+    int opcion;
+    float monto;
+
+    printf("\n¿A quién deseas agregarle abono?\n\n");
+
+    for (int i = 0; i < total; i++) {
+        printf("%d. %s\n", i + 1, lista[i].nombre);
+    }
+
+    printf("\nElige una opción: ");
+    scanf("%d", &opcion);
+
+    if (opcion < 1 || opcion > total) {
+        printf("Error: opción inválida.\n");
+        return;
+    }
+
+    Cliente *c = &lista[opcion - 1];
+
+    printf("\nMonto del abono: ");
+    scanf("%f", &monto);
+
+    c->abonos[c->numAbonos] = monto;
+    c->numAbonos++;
+
+    printf("\nAbono agregado correctamente a %s\n", c->nombre);
 }
 

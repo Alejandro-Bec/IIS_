@@ -65,10 +65,10 @@ void imprimeContacto(struct Contacto *lista, int n) {
     for (int i = 0; i < n; i++) {
 
         printf("\nContacto %d:\n", i + 1);
-        printf("Nombre: %s\n", lista[i].nombre);
-        printf("Numero: %s\n", lista[i].numero);
-        printf("Correo: %s\n", lista[i].correo);
-        printf("Edad: %d\n", lista[i].edad);
+        printf("Nombre: %s\n", (lista + i)->nombre);
+        printf("Numero: %s\n", (lista + i)->numero);
+        printf("Correo: %s\n", (lista + i)->correo);
+        printf("Edad: %d\n", (lista + i)->edad);
     }
 }
 
