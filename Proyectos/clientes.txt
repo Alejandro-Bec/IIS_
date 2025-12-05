@@ -1,0 +1,32 @@
+Alejandro
+Tenis Nike
+Zapatos
+2944.00
+3827.20
+883.20
+1
+100.00
+Gael
+Perfume Ariana Grande
+Zapatos
+400.00
+520.00
+120.00
+0
+Paty
+Perfume Aqua de Gio
+Perfumes
+200.00
+3.00
+-197.00
+0
+Maria
+Zapatos niño
+Zapatos
+293.00
+380.90
+87.90
+3
+0.00
+100.00
+200.00
